@@ -1,2 +1,1 @@
-# simple-blockchain-nestjs
-A simple centralized blockchain implementation using Nest JS
+My simple implementation of a private blockchain using Nest JS
