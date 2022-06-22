@@ -1,3 +1,5 @@
+import { address } from "bitcoinjs-lib";
+
 export class BlockDTO {
     // Hash of the block
     hash:string = ""
@@ -14,6 +16,11 @@ export class BlockDTO {
     // Reference to the previous Block Hash
     previousBlockHash:string = "";
 
+}
+
+export class StarOwnershipDTO {
+    address: string= "";
+    star: StarDTO;
 }
 
 
