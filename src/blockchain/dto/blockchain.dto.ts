@@ -9,7 +9,7 @@ export class BlockDTO {
     body:string = "";
 
     // Timestamp for the Block creation
-    time:number = 0;
+    time:string = "";
     
     // Reference to the previous Block Hash
     previousBlockHash:string = "";

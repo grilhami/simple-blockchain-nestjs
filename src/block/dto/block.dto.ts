@@ -9,9 +9,18 @@ export class BlockDTO {
     body:string = "";
 
     // Timestamp for the Block creation
-    time:number = 0;
+    time:string = "";
     
     // Reference to the previous Block Hash
     previousBlockHash:string = "";
 
+}
+
+export class StarDTO {
+    // The star's center coordinates
+    dec:number = 0;
+    ra:number = 0;
+
+    // The star's story
+    story:string = "";
 }
