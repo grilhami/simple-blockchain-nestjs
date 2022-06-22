@@ -1,7 +1,6 @@
-import { createHash } from "crypto";
+import {createHash} from "crypto" 
 
-export class BlockDTO {
-
+class BaseBlockDTO {
     // Hash of the block
     hash:string = ""
 
@@ -16,6 +15,43 @@ export class BlockDTO {
     
     // Reference to the previous Block Hash
     previousBlockHash:string = "";
+
+}
+
+export class BlockDTO extends BaseBlockDTO {
+
+    validate() {
+        let self = this;
+        return new Promise((resolve, reject) => {
+            // Check if body is valid hex
+            const re: RegExp = /[0-9A-Fa-f]{6}/g
+
+            if (!(re.test(self.body))) {
+                reject("Invalid body");
+            }
+
+            // Save in auxiliary variable the current block hash
+            const currentHash: string = self.hash;
+
+            // Recalculate the hash of the Block
+            const block: BaseBlockDTO = {
+                hash: "",
+                height: self.height,
+                body: self.body,
+                time: self.time,
+                previousBlockHash: self.previousBlockHash
+            }
+
+            const newHash: string = createHash("sha256").update(JSON.stringify(block)).digest("hex")
+
+            // Comparing if the hashes changed
+            // Returning the Block is not valid
+            // Returning the Block is valid
+
+            return resolve(currentHash === newHash);
+
+        });
+    }
 }
 
 export class SubmitStarDTO {
