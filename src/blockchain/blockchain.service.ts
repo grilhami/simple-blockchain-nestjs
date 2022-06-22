@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BlockDTO } from './dto/block.dto';
+import { BlockDTO } from './dto';
 
 
 @Injectable()

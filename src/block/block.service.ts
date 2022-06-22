@@ -1,27 +1,16 @@
-import {createHash} from "crypto" 
+import { Injectable } from '@nestjs/common';
+import { createHash } from 'crypto';
+import { BlockDTO, StarDTO } from './dto';
 
-class BaseBlockDTO {
-    // Hash of the block
-    hash:string = ""
+@Injectable()
+export class BlockService {
+    data:BlockDTO
+    constructor(data: BlockDTO) {
+        this.data = data
+    }
 
-    // Block Height (consecutive number of each block)
-    height:number = 0;
-    
-    // Will contain the transactions stored in the block, by default it will encode the data
-    body:string = "";
-
-    // Timestamp for the Block creation
-    time:number = 0;
-    
-    // Reference to the previous Block Hash
-    previousBlockHash:string = "";
-
-}
-
-export class BlockDTO extends BaseBlockDTO {
-
-    validate() {
-        let self = this;
+    validate():Promise<boolean> {
+        const self = this.data;
         return new Promise((resolve, reject) => {
             // Check if body is valid hex
             const re: RegExp = /[0-9A-Fa-f]{6}/g
@@ -34,7 +23,7 @@ export class BlockDTO extends BaseBlockDTO {
             const currentHash: string = self.hash;
 
             // Recalculate the hash of the Block
-            const block: BaseBlockDTO = {
+            const block: BlockDTO = {
                 hash: "",
                 height: self.height,
                 body: self.body,
@@ -52,25 +41,18 @@ export class BlockDTO extends BaseBlockDTO {
 
         });
     }
-}
 
-export class SubmitStarDTO {
+    getBData(): Promise<StarDTO> {
+        const self = this.data;
+        return new Promise((resolve, reject) => {
+            if (self.height === 0) {
+                reject("Cannot retrieve data of Genesis Block.")
+            }
 
-    // User wallet address
-    address:string;
+            const hexToAscii:string = Buffer.from(self.body, "hex").toString()
+            const starData:StarDTO = JSON.parse(hexToAscii)
+            resolve(starData)
+        });
 
-    // Star Message
-    message:string;
-
-    // Signature
-    signature:string;
-
-    // Star Name
-    star:string;
-}
-
-
-export class OwnershipDTO {
-    // User wallet address
-    address:string;
+    }
 }
