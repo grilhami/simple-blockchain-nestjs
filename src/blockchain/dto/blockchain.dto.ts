@@ -45,11 +45,11 @@ export class SubmitStarDTO {
     signature:string;
 
     // Star Name
-    star:string;
+    star:StarDTO;
 }
 
 
-export class OwnershipDTO {
+export class AddressDTO {
     // User wallet address
     address:string;
 }

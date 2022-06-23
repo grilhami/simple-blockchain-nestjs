@@ -8,7 +8,7 @@ import { BlockModule } from './block/block.module';
 
 @Module({
   imports: [BlockchainModule],
-  controllers: [AppController, BlockchainController],
-  providers: [AppService, BlockService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

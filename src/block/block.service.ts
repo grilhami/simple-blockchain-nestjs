@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { BlockDTO, StarDTO } from './dto';
 
-@Injectable()
 export class BlockService {
     data:BlockDTO
     constructor(data: BlockDTO) {
